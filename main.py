@@ -1,9 +1,11 @@
 import datetime
+import pandas as pandas
+import argparse
+
 from collections import defaultdict
 from http.server import HTTPServer, SimpleHTTPRequestHandler
-
-import pandas as pandas
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+
 
 env = Environment(
     loader=FileSystemLoader('.'),
@@ -16,8 +18,12 @@ today_date = datetime.date.today()
 date_of_creation = 1920
 age_of_the_winery = today_date.year - date_of_creation
 
+parser = argparse.ArgumentParser()
+parser.add_argument('-f', '--file_name', default='wine.xlsx', help='Имя файла ')
+args = parser.parse_args()
+
 wines_from_file = pandas.read_excel(
-    'wine3.xlsx',
+    args.file_name,
     na_values=['N/A', 'NA'], keep_default_na=False
 ).to_dict(orient='records')
 
