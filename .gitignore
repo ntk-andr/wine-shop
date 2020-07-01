@@ -1,3 +1,6 @@
 env/
 .vscode/
 tutorial
+.replit
+index.html
+*.xlsx
